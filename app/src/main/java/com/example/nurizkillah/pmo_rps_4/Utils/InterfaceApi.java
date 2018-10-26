@@ -39,7 +39,8 @@ public interface InterfaceApi {
 
     @FormUrlEncoded
     @POST("Buku/delete/{id}")
-    Call<ResponseBody> delete(@Path("id")String id);
+    Call<ResponseBody> delete(@Path("id")String id,
+                              @Field("nyoba")String coba);
 
     @GET("Buku")
     Call<List<Kelompok_Model>> getkelompok();

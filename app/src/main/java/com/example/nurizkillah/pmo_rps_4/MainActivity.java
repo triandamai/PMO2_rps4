@@ -3,6 +3,7 @@ package com.example.nurizkillah.pmo_rps_4;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView rv;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progress;
+    FloatingActionButton fab;
     List<Kelompok_Model> modellist;
     List<Kelompok_Model> arraymodel = new ArrayList<>();
+    com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold tool;
     InterfaceApi mApiService;
     Kelompok_Get adapter;
 
@@ -45,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rv = findViewById(R.id.rv_kelompok);
         refreshLayout = findViewById(R.id.refresh_layout);
         progress = findViewById(R.id.progress);
+        fab = findViewById(R.id.fab_tambah);
+        tool = findViewById(R.id.txt_toolbar);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -53,7 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-
+        tool.setText("DAFTAR MAHASISWA");
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Tambah.class));
+            }
+        });
 
         adapter = new Kelompok_Get(arraymodel,MainActivity.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -63,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshLayout.setRefreshing(false);
                 daftar();
                 arraymodel.clear();
             }
@@ -78,13 +89,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(adapter);
         mApiService = UtilsApi.getApiSerivce();
-
+        rv.invalidate();
         mApiService.getkelompok()
                 .enqueue(new Callback<List<Kelompok_Model>>() {
                     @Override
                     public void onResponse(Call<List<Kelompok_Model>> call, Response<List<Kelompok_Model>> response) {
                       if (response.isSuccessful()){
                           progress.setVisibility(View.GONE);
+                          refreshLayout.setRefreshing(false);
                           try {
                               if (response == null){
 
@@ -111,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPostResume() {
         super.onPostResume();
         arraymodel.clear();
+
+
     }
 
     @Override
