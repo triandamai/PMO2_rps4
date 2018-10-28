@@ -39,7 +39,6 @@ public class Kelompok_Get extends RecyclerView.Adapter<Kelompok_Get.ViewHolder> 
         this.kelompok_modelList = kelList;
         this.context = context;
     }
-
     @Override
     public Kelompok_Get.ViewHolder onCreateViewHolder(
              ViewGroup viewGroup,
@@ -50,20 +49,14 @@ public class Kelompok_Get extends RecyclerView.Adapter<Kelompok_Get.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(
-         Kelompok_Get.ViewHolder holder,
-            int posisi) {
+    public void onBindViewHolder(Kelompok_Get.ViewHolder holder,int posisi) {
             final Kelompok_Model model = kelompok_modelList.get(posisi);
-
         final Dialog mydialog = new Dialog(context);
-
         mydialog.setContentView(R.layout.dialog_detail);
-
         dialog = new ProgressDialog(context);
         dialog.setMessage("Memproses...");
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setIndeterminate(true);
-
 
         com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold nama = mydialog.findViewById(R.id.txt_nama);
         com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold nim = mydialog.findViewById(R.id.txt_nim);
@@ -122,10 +115,10 @@ public class Kelompok_Get extends RecyclerView.Adapter<Kelompok_Get.ViewHolder> 
 
 
 
-        nama.setText(model.getNama());
-        nim.setText(model.getNim());
-        kelas.setText(model.getKelas());
-        email.setText(model.getEmail());
+        nama.setText ("Nama  :"+model.getNama());
+        nim.setText  ("Nim   :"+model.getNim());
+        kelas.setText("Kelas :"+model.getKelas());
+        email.setText("Email :"+model.getEmail());
 
 
             holder.nim.setText(model.getNim());

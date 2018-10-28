@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.nurizkillah.pmo_rps_4.Adapter.Kelompok_Get;
 import com.example.nurizkillah.pmo_rps_4.DataModel.Kelompok_Model;
@@ -30,13 +31,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    RecyclerView rv;
-    SwipeRefreshLayout refreshLayout;
-    ProgressBar progress;
+    RecyclerView rv; SwipeRefreshLayout refreshLayout; ProgressBar progress;
     FloatingActionButton fab;
     List<Kelompok_Model> modellist;
     List<Kelompok_Model> arraymodel = new ArrayList<>();
-    com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold tool;
+    com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold tool,cek;
     InterfaceApi mApiService;
     Kelompok_Get adapter;
 
@@ -49,14 +48,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshLayout = findViewById(R.id.refresh_layout);
         progress = findViewById(R.id.progress);
         fab = findViewById(R.id.fab_tambah);
+        cek = findViewById(R.id.cekref);
         tool = findViewById(R.id.txt_toolbar);
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.WHITE);
-
         }
 
         tool.setText("DAFTAR MAHASISWA");
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 android.R.color.holo_orange_dark,
                 android.R.color.holo_blue_dark);
     }
-
     private void daftar() {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(adapter);
@@ -95,25 +92,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(Call<List<Kelompok_Model>> call, Response<List<Kelompok_Model>> response) {
                       if (response.isSuccessful()){
+                          cek.setText("Tarik Kebawah Untuk Refresh");
                           progress.setVisibility(View.GONE);
                           refreshLayout.setRefreshing(false);
                           try {
                               if (response == null){
-
+                                  Toast.makeText(MainActivity.this,"Hmm...Mungkin Datanya Kosong",Toast.LENGTH_LONG).show();
                               }else {
+
                                   Kelompok_Model model = new Kelompok_Model();
                                   List<Kelompok_Model> models = response.body();
                                   arraymodel.addAll(models);
-                                  adapter.notifyDataSetChanged();
-                              }
+                                  adapter.notifyDataSetChanged();        }
                           }catch (Exception e){
-
+                              Toast.makeText(MainActivity.this,"Sepertinya Terjadi Sesuatu"+"\n"+e.getMessage(),Toast.LENGTH_LONG).show();
                           }
+                      }else {
+                          Toast.makeText(MainActivity.this,"Gagal Merespon ",Toast.LENGTH_LONG).show();
+
                       }
                     }
-
                     @Override
                     public void onFailure(Call<List<Kelompok_Model>> call, Throwable t) {
+
+                        Toast.makeText(MainActivity.this,"Gagal Menghubungi Server :( ",Toast.LENGTH_LONG).show();
+                        cek.setText("data tidak Ada Silahkan Tarik Kebawah Untuk Refresh");
+                        refreshLayout.setRefreshing(false);
+
 
                     }
                 });

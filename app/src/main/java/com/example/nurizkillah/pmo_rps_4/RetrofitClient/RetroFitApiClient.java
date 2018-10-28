@@ -13,14 +13,8 @@ public class RetroFitApiClient {
 
     private static Retrofit retrofit=null;
 
-
-
-
-
     public static Retrofit getClient(String baseUrl){
         //CertificatePinner certificatePinner = new CertificatePinner.Builder().add("noobdev.biz","cca52_8f791_fe2325e4237ed4bcfc0348f60c942f4c").build();
-
-
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
@@ -29,7 +23,6 @@ public class RetroFitApiClient {
                 .addInterceptor(interceptor)
         //.certificatePinner(certificatePinner)
         .build();
-
 
         if (retrofit==null){
             retrofit = new Retrofit.Builder()

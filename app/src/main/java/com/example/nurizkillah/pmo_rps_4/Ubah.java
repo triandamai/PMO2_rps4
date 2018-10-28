@@ -106,12 +106,14 @@ public class Ubah extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(Ubah.this,"berhasil",Toast.LENGTH_LONG).show();
                     onBackPressed();
                     finish();
+                }else {
+                    Toast.makeText(Ubah.this,"Gagal Merespon",Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+            Toast.makeText(Ubah.this,"Gagal Menghubungi Server :("+"\n"+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }

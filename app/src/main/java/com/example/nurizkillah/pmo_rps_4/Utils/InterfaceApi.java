@@ -20,6 +20,10 @@ import retrofit2.http.Query;
 public interface InterfaceApi {
 
 
+
+    @GET("Buku")
+    Call<List<Kelompok_Model>> getkelompok();
+
     @FormUrlEncoded
     @POST("Buku/tambah")
     Call<ResponseBody> tambahkelompok(
@@ -31,20 +35,16 @@ public interface InterfaceApi {
     @FormUrlEncoded
     @POST("Buku/update/{id}")
     Call<ResponseBody> update(@Path("id")String id,
-            @Field("nama") String nama,
-            @Field("nim") String nim,
-            @Field("kelas") String kelas,
-            @Field("email") String email);
+                              @Field("nama") String nama,
+                              @Field("nim") String nim,
+                              @Field("kelas") String kelas,
+                              @Field("email") String email);
 
 
     @FormUrlEncoded
     @POST("Buku/delete/{id}")
     Call<ResponseBody> delete(@Path("id")String id,
                               @Field("nyoba")String coba);
-
-    @GET("Buku")
-    Call<List<Kelompok_Model>> getkelompok();
-
 
 
 }

@@ -87,17 +87,25 @@ public class Tambah extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(Tambah.this, "berhasil :(", Toast.LENGTH_LONG).show();
-                                nama.setText("");
-                                nim.setText("");
-                                kelas.setText("");
-                                email.setText("");
-                                dialog.hide();
+
+                                if (response == null){
+                                    Toast.makeText(Tambah.this,"Hmm..Tidak direspon Server :(",Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(Tambah.this, "berhasil :)", Toast.LENGTH_LONG).show();
+                                    nama.setText("");
+                                    nim.setText("");
+                                    kelas.setText("");
+                                    email.setText("");
+                                    dialog.hide();
+                                }
+                            }else {
+                                Toast.makeText(Tambah.this,"Hampir Berhasil Silahkan Coba Lagi",Toast.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(Tambah.this,"Gagal Menghubungi Server :("+"\n"+t.getMessage(),Toast.LENGTH_LONG).show();
 
                         }
                     });

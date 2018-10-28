@@ -13,12 +13,20 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <com.example.nurizkillah.pmo_rps_4.customfonts.MyTextView_Roboto_Bold
+                android:id="@+id/cekref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="tarik kebawah untuk refresh"
+                android:textStyle="italic"
+                android:textAlignment="center"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_kelompok"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -29,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -36,7 +45,7 @@
                     android:id="@+id/fab_tambah"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher_foreground"
+                    android:src="@drawable/plus"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_margin="20dp"
